@@ -22,7 +22,7 @@ public class MainActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        MenuItem menuItem = (MenuItem)findViewById(R.id.action_share);
+        MenuItem menuItem = menu.findItem(R.id.action_share);
         shareActionProvider = (ShareActionProvider)menuItem.getActionProvider();
         setIntent("This is example text");
         return super.onCreateOptionsMenu(menu);
@@ -45,7 +45,7 @@ public class MainActivity extends Activity {
     private void setIntent(String text){
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_TEXT,text);
+        intent.putExtra(Intent.EXTRA_TEXT, text);
         shareActionProvider.setShareIntent(intent);
     }
 }
