@@ -90,11 +90,13 @@ public class MainActivity extends Activity {
                 break;
         }
         FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.replace(R.id.content_frame,fragment);
+        ft.replace(R.id.content_frame, fragment);
         ft.addToBackStack(null);
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         ft.commit();
         setActionBarTitile(position);
+        DrawerLayout drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+        drawerLayout.closeDrawer(drawerList);
     }
 
     private void setActionBarTitile(int position){
