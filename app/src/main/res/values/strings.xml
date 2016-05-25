@@ -16,4 +16,8 @@
         <item>Spaghetti Bolognese</item>
         <item>Lassagne</item>
     </string-array>
+    <string-array name="stores">
+        <item>Cambridge</item>
+        <item>Sevastopol</item>
+    </string-array>
 </resources>
