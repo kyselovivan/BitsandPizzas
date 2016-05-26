@@ -23,6 +23,8 @@ public class MainActivity extends Activity {
     private ShareActionProvider shareActionProvider;
     private String[] titles;
     private ListView drawerList;
+    private ActionBarDrawerToggle drawerToggle;
+    private DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,10 +32,22 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         titles = getResources().getStringArray(R.array.titles);
         drawerList = (ListView)findViewById(R.id.drawer);
+        drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         drawerList.setAdapter(new ArrayAdapter<String>(
                 this,android.R.layout.simple_list_item_activated_1,titles)
         );
         drawerList.setOnItemClickListener(new DrawerItemClickListener());
+        drawerToggle = new ActionBarDrawerToggle(this,drawerLayout,R.string.open_drawer,R.string.close_drawer) {
+            @Override
+            public void onDrawerClosed(View view){
+                super.onDrawerClosed(view);
+            }
+            @Override
+            public void onDrawerOpened(View drawerView){
+                super.onDrawerOpened(drawerView);
+            }
+        };
+        drawerLayout.setDrawerListener(drawerToggle);
     }
 
     @Override
@@ -70,6 +84,7 @@ public class MainActivity extends Activity {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             selectItem(position);
+            drawerLayout.closeDrawer(drawerList);
         }
     }
 
@@ -109,4 +124,6 @@ public class MainActivity extends Activity {
         }
         getActionBar().setTitle(title);
     }
+
+
 }
