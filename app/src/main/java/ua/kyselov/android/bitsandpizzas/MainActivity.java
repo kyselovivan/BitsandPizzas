@@ -41,10 +41,12 @@ public class MainActivity extends Activity {
             @Override
             public void onDrawerClosed(View view){
                 super.onDrawerClosed(view);
+                invalidateOptionsMenu();
             }
             @Override
             public void onDrawerOpened(View drawerView){
                 super.onDrawerOpened(drawerView);
+                invalidateOptionsMenu();
             }
         };
         drawerLayout.setDrawerListener(drawerToggle);
@@ -125,5 +127,10 @@ public class MainActivity extends Activity {
         getActionBar().setTitle(title);
     }
 
-
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu){
+        boolean drawerOpen = drawerLayout.isDrawerOpen(drawerList);
+        menu.findItem(R.id.action_share).setVisible(!drawerOpen);
+        return super.onPrepareOptionsMenu(menu);
+    }
 }
