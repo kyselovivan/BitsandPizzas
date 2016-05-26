@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -50,6 +51,8 @@ public class MainActivity extends Activity {
             }
         };
         drawerLayout.setDrawerListener(drawerToggle);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+        drawerToggle.syncState();
     }
 
     @Override
@@ -63,6 +66,9 @@ public class MainActivity extends Activity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
+        if(drawerToggle.onOptionsItemSelected(item)){
+            return true;
+        }
         switch (item.getItemId()){
             case R.id.action_create_order:
                 Intent intent = new Intent(this, OrderActivity.class);
@@ -132,5 +138,17 @@ public class MainActivity extends Activity {
         boolean drawerOpen = drawerLayout.isDrawerOpen(drawerList);
         menu.findItem(R.id.action_share).setVisible(!drawerOpen);
         return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState){
+        super.onPostCreate(savedInstanceState);
+        drawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig){
+        super.onConfigurationChanged(newConfig);
+        drawerToggle.onConfigurationChanged(newConfig);
     }
 }
