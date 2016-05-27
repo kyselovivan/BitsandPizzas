@@ -26,11 +26,19 @@ public class MainActivity extends Activity {
     private ListView drawerList;
     private ActionBarDrawerToggle drawerToggle;
     private DrawerLayout drawerLayout;
+    private int currentPosition = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if(savedInstanceState!=null){
+            currentPosition = savedInstanceState.getInt("position");
+        }
+        else {
+            selectItem(0);
+        }
         titles = getResources().getStringArray(R.array.titles);
         drawerList = (ListView)findViewById(R.id.drawer);
         drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
@@ -150,5 +158,11 @@ public class MainActivity extends Activity {
     public void onConfigurationChanged(Configuration newConfig){
         super.onConfigurationChanged(newConfig);
         drawerToggle.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle savedInstanceState){
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putInt("position", currentPosition);
     }
 }
