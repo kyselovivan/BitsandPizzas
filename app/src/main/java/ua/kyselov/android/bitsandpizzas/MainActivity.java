@@ -33,11 +33,10 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         if(savedInstanceState!=null){
             currentPosition = savedInstanceState.getInt("position");
-        }
-        else {
-            selectItem(0);
+            setActionBarTitile(currentPosition);
         }
         titles = getResources().getStringArray(R.array.titles);
         drawerList = (ListView)findViewById(R.id.drawer);
@@ -126,6 +125,7 @@ public class MainActivity extends Activity {
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         ft.commit();
         setActionBarTitile(position);
+
         DrawerLayout drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         drawerLayout.closeDrawer(drawerList);
     }
